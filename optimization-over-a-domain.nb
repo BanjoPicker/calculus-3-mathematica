@@ -1,0 +1,457 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     17005,        449]
+NotebookOptionsPosition[     14906,        405]
+NotebookOutlinePosition[     15299,        421]
+CellTagsIndexPosition[     15256,        418]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Absolute Max/Min Example", "Title",
+ CellChangeTimes->{{3.968248240201881*^9, 
+  3.968248250746738*^9}},ExpressionUUID->"388fa372-81ac-478a-b3c9-\
+fa7791417599"],
+
+Cell[CellGroupData[{
+
+Cell["Define the function we are going to use for this example:", "Section",
+ CellChangeTimes->{{3.968248269957704*^9, 3.968248278802135*^9}, {
+  3.968248943431589*^9, 
+  3.968248945043795*^9}},ExpressionUUID->"292d0f4b-5b56-4476-ae5f-\
+bb410f17107c"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+  RowBox[{"4", "-", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"x", "-", "2"}], ")"}], "^", "2"}], "-", 
+   RowBox[{"3", "*", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"y", "-", "1"}], ")"}], "^", "2"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"Expand", "[", 
+  RowBox[{"f", "[", 
+   RowBox[{"x", ",", "y"}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.96822326811535*^9, 3.968223286545506*^9}, {
+  3.968227487556584*^9, 3.9682274915788*^9}, {3.968247982599684*^9, 
+  3.968247988598415*^9}, {3.968248261059251*^9, 3.968248305178438*^9}},
+ CellLabel->
+  "In[211]:=",ExpressionUUID->"c0cfa4ce-2ba8-4ba2-830d-c4d8a3a9923f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Define the closed & bounded domain over which we will find the Abs Min and \
+Abs Max:\
+\>", "Section",
+ CellChangeTimes->{{3.9682483174876537`*^9, 
+  3.968248356628827*^9}},ExpressionUUID->"a03def11-3e24-4b3b-9000-\
+e7d745827085"],
+
+Cell["\<\
+We use the domain $domain={(x,y) \\in R^2 :  x >= 0, y >= 0, x+y<=4}$.  This \
+is a triangle in the first quadrant with vertices at (0,0), (4,0), and (0,4).\
+\
+\>", "Text",
+ CellChangeTimes->{{3.968248399481366*^9, 3.968248458342712*^9}, {
+  3.9682486444991913`*^9, 3.968248689827589*^9}, {3.9682510024799347`*^9, 
+  3.968251019343155*^9}},ExpressionUUID->"4edd867c-1082-4d5d-a51f-\
+58dfac1b2dab"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"domain", "=", 
+   RowBox[{"ImplicitRegion", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"x", ">=", "0"}], "&&", 
+      RowBox[{"y", ">=", "0"}], "&&", 
+      RowBox[{
+       RowBox[{"x", "+", "y"}], "<=", "4"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.9682484606907454`*^9, 3.968248554825597*^9}, {
+  3.9682485867929173`*^9, 3.968248589666563*^9}, {3.968248708058778*^9, 
+  3.9682487466908913`*^9}},
+ CellLabel->
+  "In[213]:=",ExpressionUUID->"5bb03c8a-413e-4c1b-ab5c-a5b7554fb232"],
+
+Cell["Now, let\[CloseCurlyQuote]s see a plot of what this domain looks \
+like:", "Text",
+ CellChangeTimes->{{3.9682487540966988`*^9, 3.968248761186467*^9}, {
+  3.96824956835846*^9, 
+  3.9682495707523127`*^9}},ExpressionUUID->"bfd723a4-f172-42e0-8210-\
+5300f740e670"],
+
+Cell[BoxData[
+ RowBox[{"Labeled", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ParametricPlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "domain"}]}], "]"}], ",",
+    "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", " ", "\"\<The Domain in the xy-Plane\>\""}], 
+    "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"Bottom", ",", " ", "Left", ",", " ", "Top"}], "}"}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.9682484606907454`*^9, 3.968248554825597*^9}, {
+  3.9682485867929173`*^9, 3.968248589666563*^9}, {3.968248708058778*^9, 
+  3.9682489256347427`*^9}},
+ CellLabel->
+  "In[214]:=",ExpressionUUID->"d42911dc-8518-4449-ade5-82b57dd8404b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Now, let\[CloseCurlyQuote]s orient ourselves to this problem by visualizing \
+the domain along with the surface. In general, we don\[CloseCurlyQuote]t \
+always need to do this, but for this example I wanted to gain more intuition \
+through these visualizations. First, we show the domain in 2D, then in 3D, \
+and also the surface z=f(x,y) over this domain:\
+\>", "Section",
+ CellChangeTimes->{{3.968248968253929*^9, 3.9682490422934837`*^9}, {
+  3.9682495812220716`*^9, 3.9682495817056723`*^9}, {3.9682497251939507`*^9, 
+  3.968249747741211*^9}},ExpressionUUID->"1d923c23-9449-46f0-9daa-\
+5829945856af"],
+
+Cell[BoxData[
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"ParametricPlot", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"x", ",", "y"}], "}"}], ",", " ", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "domain"}], ",", 
+       RowBox[{"PlotStyle", "->", 
+        RowBox[{"{", "Blue", "}"}]}], ",", 
+       RowBox[{"AxesLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}]}], ",", " ", 
+       RowBox[{"PlotLabel", "->", "\"\<The Domain in R^2\>\""}]}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"x", ",", "y", ",", "0"}], "}"}], ",", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "domain"}], ",", 
+       RowBox[{"PlotStyle", "->", 
+        RowBox[{"{", "Blue", "}"}]}], ",", 
+       RowBox[{"AxesLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", " ", 
+       RowBox[{"PlotLabel", "->", "\"\<The Domain in R^3\>\""}]}], "]"}], ",",
+      "\[IndentingNewLine]", 
+     RowBox[{"Plot3D", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "y"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "domain"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotRange", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "30"}], ",", "10"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"AspectRatio", "->", "1"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AxesLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "PlotLabel", 
+        "->", "\"\<The Objective Function over the Domain\>\""}]}], 
+      "\[IndentingNewLine]", "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"ImageSize", "->", "Full"}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.968223491760051*^9, 3.968223591338328*^9}, {
+  3.9682238962695217`*^9, 3.968224012230089*^9}, {3.968227129475931*^9, 
+  3.968227236826643*^9}, {3.96822727624807*^9, 3.968227314451764*^9}, {
+  3.968227376549531*^9, 3.968227463588605*^9}, {3.9682278673891172`*^9, 
+  3.968227878311694*^9}, {3.968227975875517*^9, 3.9682279803271914`*^9}, {
+  3.968228011652965*^9, 3.968228061309867*^9}, {3.9682308783461514`*^9, 
+  3.968230883697157*^9}, {3.968249758803152*^9, 3.968249828273519*^9}, {
+  3.968250524414646*^9, 
+  3.968250613198084*^9}},ExpressionUUID->"ff331ee4-cfb3-4003-a18a-\
+76e8f64de86d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Next, we can look at the surface alone, so that we can interact with it (turn \
+up from side to side etc) to see different aspects of the surface. Note that \
+I\[CloseCurlyQuote]ve also plotted each of the bounding curves using a \
+different color for each in order to be able to refer to specific boundary \
+curves in my plot. Finally, I rotated this in class to get an idea of what we \
+expect when we proceed with this problem. In  particular, we kind of expect \
+we know where the Abs Min will be, and we can kind of see that we will have \
+points to test along each of the 3 segments making up the boundary of this \
+domain if you look at the different angles. I emphasized that we don\
+\[CloseCurlyQuote]t do this detailed explanation for every problem, but in \
+order to try to maximize building intuition, I found this helpful in  my \
+class.\
+\>", "Section",
+ CellChangeTimes->{{3.968249058150432*^9, 3.9682492306279716`*^9}, {
+  3.968250685942554*^9, 
+  3.968250714260017*^9}},ExpressionUUID->"3610d9f4-fe4e-4d89-b8ad-\
+40bcf53811d0"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Plot3D", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "y"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "domain"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"PlotRange", "->", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "30"}], ",", "10"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"AspectRatio", "->", "1"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AxesLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}]}], "\[IndentingNewLine]", 
+      "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "y", ",", 
+         RowBox[{"f", "[", 
+          RowBox[{"0", ",", "y"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"y", ",", "0", ",", "4"}], "}"}], ",", 
+       RowBox[{"PlotStyle", "->", 
+        RowBox[{"{", "Blue", "}"}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"x", ",", "0", ",", 
+         RowBox[{"f", "[", 
+          RowBox[{"x", ",", "0"}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "0", ",", "4"}], "}"}], ",", 
+       RowBox[{"PlotStyle", "->", 
+        RowBox[{"{", "Red", "}"}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ParametricPlot3D", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"4", "-", "x"}], ",", 
+         RowBox[{"f", "[", 
+          RowBox[{"x", ",", 
+           RowBox[{"4", "-", "x"}]}], "]"}]}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "0", ",", "4"}], "}"}], ",", 
+       RowBox[{"PlotStyle", "->", 
+        RowBox[{"{", "Green", "}"}]}]}], "]"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+   "PlotLabel", 
+    "->", "\"\<The Objective Function to be Optimized along with the 3 \
+Boundary Segments\>\""}], ",", "\[IndentingNewLine]", 
+   RowBox[{"ImageSize", "->", "Large"}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.968227555420804*^9, 3.968227733678713*^9}, {
+  3.96822806861032*^9, 3.9682280977988653`*^9}, {3.968249840147811*^9, 
+  3.968249872053958*^9}, {3.9682504762880993`*^9, 3.968250479879663*^9}, {
+  3.968250636288487*^9, 3.968250637660432*^9}, {3.968250815291038*^9, 
+  3.968250818102285*^9}},
+ CellLabel->
+  "In[230]:=",ExpressionUUID->"97539fe8-abd5-495f-8d6e-c28a8acb7bbb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Now, after finding all interior critical points, boundary corners, and points \
+on the boundary where we have a critical point when f is restricted to the \
+boundary segment, we need to plug these points into f to determine the Abs \
+Max and Abs Min. I\[CloseCurlyQuote]ve done this here to avoid needing to do \
+this by hand at the board in class:\
+\>", "Section",
+ CellChangeTimes->{{3.968249256992272*^9, 3.968249331270637*^9}, {
+  3.9682496074771433`*^9, 3.968249632489048*^9}, {3.9682503937486277`*^9, 
+  3.968250409417687*^9}, {3.968250834186116*^9, 
+  3.968250850833933*^9}},ExpressionUUID->"47f3838c-af7a-4252-a988-\
+7ed28d166e8d"],
+
+Cell[BoxData[{
+ RowBox[{"f", "[", 
+  RowBox[{"2", ",", "1"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"2", ",", "0"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"0", ",", "0"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"4", ",", "0"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"0", ",", "1"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"0", ",", "4"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{
+   RowBox[{"11", "/", "4"}], ",", 
+   RowBox[{"5", "/", "4"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.96822364108226*^9, 3.9682236846019363`*^9}},
+ CellLabel->
+  "In[217]:=",ExpressionUUID->"dbb16a47-c399-4c7e-9ddd-17fe2cc3c8ef"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["Once we have this, we can now finally answer the question:",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["\n",
+  FontColor->GrayLevel[0]],
+ StyleBox["The Abs Max of ",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["f",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" over the domain is 4, and it occurs at the interior point (2,1).\n\
+The Abs Min of ",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]],
+ StyleBox["f",
+  FontWeight->"Bold",
+  FontSlant->"Italic",
+  FontColor->GrayLevel[0]],
+ StyleBox[" over the domain is -27, and it occurs at the boundary point \
+(0,4).",
+  FontWeight->"Bold",
+  FontColor->GrayLevel[0]]
+}], "Section",
+ CellFrame->{{0, 0}, {0, 1}},
+ CellChangeTimes->{{3.968249415695204*^9, 3.9682494589154673`*^9}, {
+  3.968249514089979*^9, 3.96824952364917*^9}, {3.968250425007607*^9, 
+  3.968250430464705*^9}},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"7cde3451-c17d-44be-b0ee-95cf4dad70cc"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Finally, Mathematica has functions to compute max/min, the functions give not \
+only the max and min, but also the locations where they occur so we can use \
+this to check out results above:\
+\>", "Section",
+ CellChangeTimes->{{3.968249347943548*^9, 3.9682493602145233`*^9}, {
+  3.9682493919543037`*^9, 3.968249405862585*^9}, {3.968249536690975*^9, 
+  3.9682495506184607`*^9}},ExpressionUUID->"3503adc6-f62f-42a1-a327-\
+374b6971f328"],
+
+Cell[BoxData[{
+ RowBox[{"Maximize", "[", 
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x", ",", "y"}], "]"}], ",", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "domain"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Minimize", "[", 
+  RowBox[{
+   RowBox[{"f", "[", 
+    RowBox[{"x", ",", "y"}], "]"}], ",", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "domain"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.9682493676090593`*^9, 3.9682493837460337`*^9}},
+ CellLabel->
+  "In[224]:=",ExpressionUUID->"5dc84a79-cf13-4fec-b173-d271afae1076"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1508, 947},
+WindowMargins->{{17, Automatic}, {Automatic, 13}},
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2d4db57c-4497-4a59-a17b-d98ad5ce316d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 167, 3, 96, "Title",ExpressionUUID->"388fa372-81ac-478a-b3c9-fa7791417599"],
+Cell[CellGroupData[{
+Cell[768, 29, 251, 4, 66, "Section",ExpressionUUID->"292d0f4b-5b56-4476-ae5f-bb410f17107c"],
+Cell[1022, 35, 718, 19, 49, "Input",ExpressionUUID->"c0cfa4ce-2ba8-4ba2-830d-c4d8a3a9923f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1777, 59, 240, 6, 66, "Section",ExpressionUUID->"a03def11-3e24-4b3b-9000-e7d745827085"],
+Cell[2020, 67, 407, 8, 33, "Text",ExpressionUUID->"4edd867c-1082-4d5d-a51f-58dfac1b2dab"],
+Cell[2430, 77, 595, 16, 29, "Input",ExpressionUUID->"5bb03c8a-413e-4c1b-ab5c-a5b7554fb232"],
+Cell[3028, 95, 266, 5, 33, "Text",ExpressionUUID->"bfd723a4-f172-42e0-8210-5300f740e670"],
+Cell[3297, 102, 841, 21, 111, "Input",ExpressionUUID->"d42911dc-8518-4449-ade5-82b57dd8404b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4175, 128, 612, 10, 140, "Section",ExpressionUUID->"1d923c23-9449-46f0-9daa-5829945856af"],
+Cell[4790, 140, 2759, 66, 274, "Input",ExpressionUUID->"ff331ee4-cfb3-4003-a18a-76e8f64de86d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7586, 211, 1054, 17, 289, "Section",ExpressionUUID->"3610d9f4-fe4e-4d89-b8ad-40bcf53811d0"],
+Cell[8643, 230, 2686, 68, 294, "Input",ExpressionUUID->"97539fe8-abd5-495f-8d6e-c28a8acb7bbb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11366, 303, 649, 11, 140, "Section",ExpressionUUID->"47f3838c-af7a-4252-a988-7ed28d166e8d"],
+Cell[12018, 316, 746, 19, 151, "Input",ExpressionUUID->"dbb16a47-c399-4c7e-9ddd-17fe2cc3c8ef"]
+}, Open  ]],
+Cell[12779, 338, 1014, 31, 144, "Section",ExpressionUUID->"7cde3451-c17d-44be-b0ee-95cf4dad70cc"],
+Cell[CellGroupData[{
+Cell[13818, 373, 444, 8, 89, "Section",ExpressionUUID->"3503adc6-f62f-42a1-a327-374b6971f328"],
+Cell[14265, 383, 613, 18, 49, "Input",ExpressionUUID->"5dc84a79-cf13-4fec-b173-d271afae1076"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
