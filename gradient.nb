@@ -1,0 +1,400 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     15593,        392]
+NotebookOptionsPosition[     14667,        367]
+NotebookOutlinePosition[     15058,        383]
+CellTagsIndexPosition[     15015,        380]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Set up the function used to illustrate the gradient vector along with some \
+convenience parameters for plots:\
+\>", "Section",
+ CellChangeTimes->{{3.968253580561186*^9, 
+  3.968253622705183*^9}},ExpressionUUID->"5149e20b-3e8f-46b0-ba86-\
+9c5dd38f2291"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"xmin", " ", "=", " ", 
+   RowBox[{"-", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xmax", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ymin", "=", 
+   RowBox[{"-", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ymax", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"zmin", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"zmax", "=", "18"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+  RowBox[{"16", "-", 
+   RowBox[{"4", 
+    RowBox[{"x", "^", "2"}]}], "-", 
+   RowBox[{"y", "^", "2"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"grad", "=", 
+  RowBox[{"Grad", "[", 
+   RowBox[{
+    RowBox[{"f", "[", 
+     RowBox[{"x", ",", "y"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.9678269965333*^9, 3.967827156144704*^9}, {
+   3.967828357822846*^9, 3.9678283751472816`*^9}, {3.96782901828162*^9, 
+   3.967829024862214*^9}, {3.9678291725442257`*^9, 3.967829176964281*^9}, {
+   3.967829248592661*^9, 3.9678292578083897`*^9}, {3.967829313932208*^9, 
+   3.96782936392251*^9}, {3.967830113545446*^9, 3.9678301307590837`*^9}, {
+   3.9678307338177156`*^9, 3.967830790278069*^9}, {3.9678308220868998`*^9, 
+   3.9678308255986023`*^9}, {3.967830902510366*^9, 3.9678309791068487`*^9}, {
+   3.967831023968583*^9, 3.967831122789126*^9}, {3.967831171716647*^9, 
+   3.967831206218527*^9}, {3.967831277820387*^9, 3.967831374891366*^9}, {
+   3.9678315059460907`*^9, 3.967831598371488*^9}, {3.96783164865484*^9, 
+   3.967831695859418*^9}, {3.9678318101537647`*^9, 3.9678318796423597`*^9}, {
+   3.9678319159392347`*^9, 3.967831916633263*^9}, {3.967832036143437*^9, 
+   3.9678320453315477`*^9}, {3.967832161913579*^9, 3.9678321883575497`*^9}, {
+   3.967832305432332*^9, 3.967832413750441*^9}, {3.967844538762166*^9, 
+   3.9678445745800962`*^9}, {3.967844680416725*^9, 3.967844686030498*^9}, {
+   3.967844723559148*^9, 3.967844728308737*^9}, {3.96784485008807*^9, 
+   3.967844854258154*^9}, {3.967844970685074*^9, 3.967844975727167*^9}, {
+   3.9678451907632113`*^9, 3.9678451913578453`*^9}, 
+   3.968253600147924*^9},ExpressionUUID->"2b2aa343-60bb-44ed-9d85-\
+cefba95936d3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Create an interactive plot that allows us to move the direction vector around \
+360 degrees, and show how it determines a single variable calculus curve, and \
+show that the tangent follows the direction as well. This is interactive, we \
+can move the base point (a,b) as well as the direction of the unit vector we \
+are looking at. The unit vector is displayed in the xy-plane below the \
+surface, hence we also include an opacity configuration to be able to see \
+through the surface:\
+\>", "Section",
+ CellChangeTimes->{{3.9682536293324738`*^9, 
+  3.968253747170146*^9}},ExpressionUUID->"ad230f1b-7524-4bb2-aaac-\
+65ff738ef8fa"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Show", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Plot3D", "[", 
+       RowBox[{
+        RowBox[{"f", "[", 
+         RowBox[{"x", ",", "y"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", 
+          RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"y", ",", " ", 
+          RowBox[{"-", "2"}], ",", "2"}], "}"}], ",", 
+        RowBox[{"PlotRange", "->", 
+         RowBox[{"{", 
+          RowBox[{"zmin", ",", "zmax"}], "}"}]}], ",", 
+        RowBox[{"PerformanceGoal", "->", "\"\<Quality\>\""}], ",", 
+        RowBox[{"Mesh", "->", "10"}], ",", 
+        RowBox[{"PlotStyle", "->", 
+         RowBox[{"Opacity", "[", "opacity", "]"}]}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ParametricPlot3D", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"x", ",", "b", ",", "z"}], "}"}], ",", " ", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x", ",", "z"}], "}"}], "\[Element]", 
+         RowBox[{"ImplicitRegion", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"0", "<=", "z", "<=", 
+             RowBox[{"f", "[", 
+              RowBox[{"x", ",", "b"}], "]"}]}], " ", "&&", " ", 
+            RowBox[{
+             RowBox[{"-", "2"}], "<=", "x", "<=", "2"}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", "z"}], "}"}]}], "]"}]}], ",", 
+        RowBox[{"Mesh", "->", "4"}], ",", 
+        RowBox[{"PlotStyle", "->", "Blue"}], ",", 
+        RowBox[{"PlotRange", "->", 
+         RowBox[{"{", 
+          RowBox[{"zmin", ",", "zmax"}], "}"}]}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ParametricPlot3D", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"a", ",", "y", ",", "z"}], "}"}], ",", " ", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"y", ",", "z"}], "}"}], "\[Element]", 
+         RowBox[{"ImplicitRegion", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"0", "<=", "z", "<=", 
+             RowBox[{"f", "[", 
+              RowBox[{"a", ",", "y"}], "]"}]}], " ", "&&", " ", 
+            RowBox[{
+             RowBox[{"-", "2"}], "<=", "y", "<=", "2"}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"y", ",", "z"}], "}"}]}], "]"}]}], ",", 
+        RowBox[{"Mesh", "->", "4"}], ",", 
+        RowBox[{"PlotStyle", "->", "Red"}], ",", 
+        RowBox[{"PlotRange", "->", 
+         RowBox[{"{", 
+          RowBox[{"zmin", ",", "zmax"}], "}"}]}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Graphics3D", "[", 
+       RowBox[{"Arrow", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"a", ",", "b", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"a", "+", 
+             RowBox[{"Cos", "[", "\[Theta]", "]"}]}], ",", 
+            RowBox[{"b", "+", 
+             RowBox[{"Sin", "[", "\[Theta]", "]"}]}], ",", "0"}], "}"}]}], 
+         "}"}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"ParametricPlot3D", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"a", "+", 
+           RowBox[{"t", "*", 
+            RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ",", " ", 
+          RowBox[{"b", "+", 
+           RowBox[{"t", "*", 
+            RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}], ",", 
+          RowBox[{
+           RowBox[{"f", "[", 
+            RowBox[{"a", ",", "b"}], "]"}], "+", 
+           RowBox[{"t", "*", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{
+                  SubscriptBox["\[PartialD]", "x"], 
+                  RowBox[{"f", "[", 
+                   RowBox[{"x", ",", "y"}], "]"}]}], "/.", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"x", "->", "a"}], ",", 
+                   RowBox[{"y", "->", "b"}]}], "}"}]}], ")"}], "*", 
+               RowBox[{"Cos", "[", "\[Theta]", "]"}]}], "+", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{
+                  SubscriptBox["\[PartialD]", "y"], 
+                  RowBox[{"f", "[", 
+                   RowBox[{"x", ",", "y"}], "]"}]}], "/.", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"x", "->", "a"}], ",", 
+                   RowBox[{"y", "->", "b"}]}], "}"}]}], ")"}], "*", 
+               RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}], ")"}]}]}]}], "}"}], 
+        ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", 
+          RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ParametricPlot3D", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"a", "+", 
+           RowBox[{"t", "*", 
+            RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ",", " ", 
+          RowBox[{"b", "+", 
+           RowBox[{"t", "*", 
+            RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}], ",", 
+          RowBox[{"f", "[", 
+           RowBox[{
+            RowBox[{"a", "+", 
+             RowBox[{"t", "*", 
+              RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ",", " ", 
+            RowBox[{"b", "+", 
+             RowBox[{"t", "*", 
+              RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}]}], "]"}]}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", 
+          RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"AxesLabel", "->", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ImageSize", "->", "Large"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"AspectRatio", "->", "1"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"PlotRange", "->", 
+       RowBox[{"{", 
+        RowBox[{"zmin", ",", "zmax"}], "}"}]}]}], "\[IndentingNewLine]", 
+     "]"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"opacity", ",", "0.5", ",", "\"\<Opacity\>\""}], "}"}], ",", 
+      "0", ",", "1", ",", "0.10"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"a", ",", "0.5", ",", "\"\<x-value\>\""}], "}"}], ",", 
+      RowBox[{"-", "2"}], ",", "2", ",", "0.25"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"b", ",", "0.5", ",", "\"\<y-value\>\""}], "}"}], ",", 
+      RowBox[{"-", "2"}], ",", "2", ",", "0.25"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\[Theta]", ",", "0", ",", "\"\<unit vector\>\""}], "}"}], ",",
+       "0", ",", 
+      RowBox[{"2", "*", "Pi"}], ",", 
+      RowBox[{"Pi", "/", "24"}]}], "}"}]}], "\[IndentingNewLine]", "]"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.9678269965333*^9, 3.967827156144704*^9}, {
+   3.967828357822846*^9, 3.9678283751472816`*^9}, {3.96782901828162*^9, 
+   3.967829024862214*^9}, {3.9678291725442257`*^9, 3.967829176964281*^9}, {
+   3.967829248592661*^9, 3.9678292578083897`*^9}, {3.967829313932208*^9, 
+   3.96782936392251*^9}, {3.967830113545446*^9, 3.9678301307590837`*^9}, {
+   3.9678307338177156`*^9, 3.967830790278069*^9}, {3.9678308220868998`*^9, 
+   3.9678308255986023`*^9}, {3.967830902510366*^9, 3.9678309791068487`*^9}, {
+   3.967831023968583*^9, 3.967831122789126*^9}, {3.967831171716647*^9, 
+   3.967831206218527*^9}, {3.967831277820387*^9, 3.967831374891366*^9}, {
+   3.9678315059460907`*^9, 3.967831598371488*^9}, {3.96783164865484*^9, 
+   3.967831695859418*^9}, {3.9678318101537647`*^9, 3.9678318796423597`*^9}, {
+   3.9678319159392347`*^9, 3.967831916633263*^9}, {3.967832036143437*^9, 
+   3.9678320453315477`*^9}, {3.967832161913579*^9, 3.9678321883575497`*^9}, {
+   3.967832305432332*^9, 3.967832413750441*^9}, {3.967844538762166*^9, 
+   3.9678445745800962`*^9}, {3.967844680416725*^9, 3.967844686030498*^9}, {
+   3.967844723559148*^9, 3.967844728308737*^9}, {3.96784485008807*^9, 
+   3.967844854258154*^9}, {3.967844970685074*^9, 3.967844975727167*^9}, {
+   3.9678451907632113`*^9, 3.9678451913578453`*^9}, 
+   3.968253600147924*^9},ExpressionUUID->"4cb8e78c-88b5-457d-a1fe-\
+6dcaeca93355"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Now, illustrate how the gradient compares to the level curves (traces) of a \
+function. This motivates the property that the gradient is orthogonal to the \
+level curves of f:\
+\>", "Section",
+ CellChangeTimes->{{3.968253773152484*^9, 
+  3.968253805817708*^9}},ExpressionUUID->"e6c104b5-d54f-4c5f-9618-\
+14c61e0ab622"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", 
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"x", ",", "y"}], "]"}], ",", " ", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "\[Element]", 
+      RowBox[{"ImplicitRegion", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"x", "^", "2"}], "+", 
+          RowBox[{
+           RowBox[{"y", "^", "2"}], "/", "4"}]}], "<=", "1"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}], ",", 
+     RowBox[{"AspectRatio", "->", "1"}], ",", 
+     RowBox[{"Contours", "->", "20"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"VectorPlot", "[", 
+    RowBox[{"grad", ",", " ", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}], "\[Element]", 
+      RowBox[{"ImplicitRegion", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"x", "^", "2"}], "+", 
+          RowBox[{
+           RowBox[{"y", "^", "2"}], "/", "4"}]}], "<=", "1"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}], ",", 
+     RowBox[{"AspectRatio", "->", "1"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   
+   RowBox[{"AspectRatio", "->", "2"}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.967828391036929*^9, 3.9678284596609163`*^9}, {
+  3.967828583685774*^9, 3.967828593895895*^9}, {3.9678286371485157`*^9, 
+  3.967828659849472*^9}, {3.967828778256122*^9, 3.967828780992126*^9}, {
+  3.967828834554847*^9, 3.9678288368276978`*^9}, {3.967828896985577*^9, 
+  3.967828941958637*^9}, {3.967829040430297*^9, 3.967829065070072*^9}, {
+  3.967829152942601*^9, 3.967829153629348*^9}, {3.967829214430005*^9, 
+  3.967829229491943*^9}, {3.967829271622732*^9, 3.967829294665773*^9}, {
+  3.9678301396278152`*^9, 3.9678303078697243`*^9}, {3.96783036676757*^9, 
+  3.967830375774179*^9}, {3.968253760677165*^9, 3.968253769395117*^9}, {
+  3.968253811525775*^9, 3.9682538131458473`*^9}},
+ CellLabel->
+  "In[337]:=",ExpressionUUID->"e5154028-5396-4e60-b48a-b3728720e252"]
+}, Open  ]]
+},
+WindowSize->{1354, 882},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"c4f99b5a-31b9-47a1-83ab-49498e73413c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 263, 6, 66, "Section",ExpressionUUID->"5149e20b-3e8f-46b0-ba86-9c5dd38f2291"],
+Cell[842, 30, 2293, 48, 172, "Input",ExpressionUUID->"2b2aa343-60bb-44ed-9d85-cefba95936d3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3172, 83, 642, 11, 214, "Section",ExpressionUUID->"ad230f1b-7524-4bb2-aaac-65ff738ef8fa"],
+Cell[3817, 96, 8368, 204, 397, "Input",ExpressionUUID->"4cb8e78c-88b5-457d-a1fe-6dcaeca93355"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12222, 305, 328, 7, 103, "Section",ExpressionUUID->"e6c104b5-d54f-4c5f-9618-14c61e0ab622"],
+Cell[12553, 314, 2098, 50, 111, "Input",ExpressionUUID->"e5154028-5396-4e60-b48a-b3728720e252"]
+}, Open  ]]
+}
+]
+*)
+
