@@ -1,0 +1,806 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     29838,        798]
+NotebookOptionsPosition[     27681,        752]
+NotebookOutlinePosition[     28074,        768]
+CellTagsIndexPosition[     28031,        765]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Illustrations to Develop Intuition for why Lagrange Multipliers Function the \
+way they Do. Plots of Level Curves against the Constraint Function show the \
+Relationship of the Normal Vectors and why we get grad(f)=\[Lambda] grad(g).
+Based off of the text #4.\
+\>", "Title",
+ CellChangeTimes->{{3.9682570300385303`*^9, 3.968257117371511*^9}, {
+  3.9682804597780046`*^9, 
+  3.968280470682502*^9}},ExpressionUUID->"349d7c43-26e6-4477-918e-\
+c17903dff101"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Some setup parameters for the function to be optimized and the constraint:\
+\>", "Section",
+ CellChangeTimes->{{3.968256836066989*^9, 
+  3.968256848449855*^9}},ExpressionUUID->"f3dfef55-22a4-489c-bd0e-\
+da8016b99691"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"plotting", " ", "paramters"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"xmin", "=", 
+     RowBox[{"-", "3"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"xmax", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ymin", "=", 
+     RowBox[{"-", "2"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ymax", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"constraint", " ", "parameters"}], "*)"}], "\[IndentingNewLine]", 
+   
+   RowBox[{
+    RowBox[{"x0", "=", "4"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"y0", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"a", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"b", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"function", " ", "and", " ", "constraint", " ", "definitions"}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"f", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+    RowBox[{"y", "*", 
+     RowBox[{"x", "^", "2"}]}]}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"g", "[", 
+     RowBox[{"x_", ",", "y_"}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{"x", "^", "2"}], "+", 
+     RowBox[{"y", "^", "4", "  ", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"note", ":", " ", 
+         RowBox[{"do", " ", "not", " ", "change", " ", "this"}]}], ",", " ", 
+        RowBox[{
+        "the", " ", "parametric", " ", "functions", " ", "do", " ", "not", " ",
+          "update", " ", "automatically"}]}], " ", "*)"}]}]}]}]}]}]], "Input",\
+
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQAWIQ3flnT1nShLeO8nLqlSB6uajhUhCdGbx/GYg+dqRj
+LYh2ktq4DkS3dloLJgPpZffEhED0qcLT8iDao6hEAUR/CEhXBdFNR3M0QbT8
++hili0D66M6DKiA6KOyFCYgWtRQwB9HLhetf3ADSj4OWvwLRT3b/eA+i66Sn
+fQbRHLHvOG+C1N1KEADRhScrZUH0feevqiB6ziF9HRD92cbJGERHyNo4guiF
+txK9QPSEr2oqT4D0ubgMPRCdKbW6BkSL7FasBdFvch6tBdHvnx5ZB6Jdqi5/
+BtGMVWu+gOi4K+9DnwLpbRMvhYFoj+VTAp4B6ZKr28E0AKeOsvU=
+  "],
+ CellLabel->
+  "In[784]:=",ExpressionUUID->"56c28491-6742-4d1d-b63e-f50cb857f774"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Next up: Let\[CloseCurlyQuote]s show the constraint curve superimposed in the \
+surface. Note that I\[CloseCurlyQuote]ve used a parametric representation of \
+the surface because with the parameterization I\[CloseCurlyQuote]ve chosen, \
+the grid lines on the surface correspond to the level curves because the \
+parameterization uses z as one of the parameters. The point here is that we \
+can see that the max and min along the constraint curve are tangent to the \
+level curves in the surface - hence their normals must be scalar multiples of \
+each other:\
+\>", "Section",
+ CellChangeTimes->{{3.968254031423559*^9, 3.968254135962491*^9}, {
+  3.9682545148479137`*^9, 
+  3.968254542747258*^9}},ExpressionUUID->"e4e00826-5d82-4486-abb3-\
+b169876b773b"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", "y", ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", "y"}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "xmin", ",", "xmax"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "ymin", ",", "ymax"}], "}"}], " ", ",", 
+     RowBox[{"PlotRange", "->", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "5"}], ",", "5"}], "}"}]}], ",", 
+     RowBox[{"AxesLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+     RowBox[{"Mesh", "->", "30"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RadicalBox[
+        RowBox[{"5", "-", 
+         RowBox[{"x", "^", "2"}]}], "4"], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", 
+         RadicalBox[
+          RowBox[{"5", "-", 
+           RowBox[{"x", "^", "2"}]}], "4"]}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", 
+        SqrtBox["5"]}], ",", 
+       SqrtBox["5"]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot3D", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", 
+        RadicalBox[
+         RowBox[{"5", "-", 
+          RowBox[{"x", "^", "2"}]}], "4"]}], ",", 
+       RowBox[{"f", "[", 
+        RowBox[{"x", ",", 
+         RowBox[{"-", 
+          RadicalBox[
+           RowBox[{"5", "-", 
+            RowBox[{"x", "^", "2"}]}], "4"]}]}], "]"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", 
+        SqrtBox["5"]}], ",", 
+       SqrtBox["5"]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"PlotRange", "->", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "10"}], ",", "10"}], "}"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"ImageSize", "->", "Full"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"BoxRatios", "->", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "1"}], "}"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+   "PlotLabel", 
+    "->", "\"\<The Surace z=f(x,y) with the Constraint Superimposed\>\""}], ",",
+    "\[IndentingNewLine]", 
+   RowBox[{"AxesLabel", "->", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y", ",", "z"}], "}"}]}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJwdz1soQwEABuDTREpsItRsjWyhUS5NGM2QtigjtJI4WCk1uU255LaUqD1K
+zHkwzQO5FQnzQDxY0UmdLUVCmpmaKMWZ85+Hv6//4X/4U0hzXaeAIAgZF2iS
+0zRpey/r1u8zcCmjKgBXQx0hmChRhLVzxh/7hdAnvRfDPWGlBNqqotNhr2+e
+9yeuTwmduoIsqAk85ECx3ZQPa88Mr9fYR0x+Q7dl5ReKdi0s7KFc4TecUfsx
+CZAOtxpgU8sJL9lxPAabnyuXIVt8uQb7lygn1GqYbTg1PLcDWwnhERxhiFPo
+fD88h/HGkgsYcIxewaG3NjeUPn6JafycSZXAz+CXHI4X//HmmoukDKfyNU0B
+B4ddSlj459HAO3f9NzwI0SzsCspVHs7Yj80CmLyYVA2NuYoaeHulUz1xCtap
+Eki6RLXQz/QboN2rboSR3ooW6AgbIGH2Y94gZDdkE/BEb5nie1+m7JlzYVbL
+W0qpC1/ww96rhlrrUzmc3mqogP990xyM
+  "],
+ CellLabel->
+  "In[794]:=",ExpressionUUID->"2ab7eb84-7c91-42cb-921f-80c73c1f8fb8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Let\[CloseCurlyQuote]s compare the 3D surface with constraint curve, along \
+with the 2D contour plots against the constraint curve. Hover over the level \
+curves to find the approximate maximums and minimums:\
+\>", "Section",
+ CellChangeTimes->{{3.968253958979103*^9, 3.968253984593801*^9}, {
+  3.9682571255249653`*^9, 3.968257146249003*^9}, {3.968282495592148*^9, 
+  3.968282507040794*^9}},ExpressionUUID->"7249a366-e9d1-4663-a02f-\
+ee73515b0079"],
+
+Cell[BoxData[
+ RowBox[{"GraphicsRow", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Show", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Plot3D", "[", 
+        RowBox[{
+         RowBox[{"f", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "xmin", ",", "xmax"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"y", ",", "ymin", ",", "ymax"}], "}"}], ",", 
+         RowBox[{"PlotRange", "->", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "16"}], ",", "16"}], "}"}]}]}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"ParametricPlot3D", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x", ",", 
+           RadicalBox[
+            RowBox[{"5", "-", 
+             RowBox[{"x", "^", "2"}]}], "4"], ",", 
+           RowBox[{"f", "[", 
+            RowBox[{"x", ",", 
+             RadicalBox[
+              RowBox[{"5", "-", 
+               RowBox[{"x", "^", "2"}]}], "4"]}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", 
+           RowBox[{"-", 
+            SqrtBox["5"]}], ",", 
+           SqrtBox["5"]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"ParametricPlot3D", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"x", ",", 
+           RowBox[{"-", 
+            RadicalBox[
+             RowBox[{"5", "-", 
+              RowBox[{"x", "^", "2"}]}], "4"]}], ",", 
+           RowBox[{"f", "[", 
+            RowBox[{"x", ",", 
+             RowBox[{"-", 
+              RadicalBox[
+               RowBox[{"5", "-", 
+                RowBox[{"x", "^", "2"}]}], "4"]}]}], "]"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", 
+           RowBox[{"-", 
+            SqrtBox["5"]}], ",", 
+           SqrtBox["5"]}], "}"}]}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+       "PlotLabel", 
+        "->", "\"\<The Surface z=f(x,y) with the Constraint Curve shown in \
+the Surface\>\""}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AxesLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y", ",", "z"}], "}"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"BoxRatios", "->", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", " ", "1", ",", " ", "1"}], "}"}]}]}], 
+      "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Show", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"ContourPlot", "[", 
+        RowBox[{
+         RowBox[{"f", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "xmin", ",", "xmax"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"y", ",", "ymin", ",", "ymax"}], "}"}], ",", 
+         RowBox[{"PlotRange", "->", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "30"}], ",", "30"}], "}"}]}], ",", 
+         RowBox[{"Contours", "->", 
+          RowBox[{"Table", "[", 
+           RowBox[{"z", ",", 
+            RowBox[{"{", 
+             RowBox[{"z", ",", 
+              RowBox[{"-", "30"}], ",", "30", ",", "1"}], "}"}]}], "]"}]}], ",", 
+         RowBox[{"AxesLabel", "->", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "y"}], "}"}]}]}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"ContourPlot", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"g", "[", 
+           RowBox[{"x", ",", "y"}], "]"}], "==", "5"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "xmin", ",", "xmax"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"y", ",", "ymin", ",", "ymax"}], "}"}]}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+       "PlotLabel", 
+        "->", "\"\<Contour Plot of z=f(x,y) with the Constraint Shown\>\""}], 
+       ",", "\[IndentingNewLine]", 
+       RowBox[{"AxesLabel", "->", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "y"}], "}"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AspectRatio", "->", "1"}]}], "\[IndentingNewLine]", "]"}]}], 
+    "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"ImageSize", "->", "Full"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"AxesLabel", "->", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.96801486407769*^9, 3.968014903784692*^9}, {
+   3.968014969328204*^9, 3.9680149735306797`*^9}, {3.968240373609469*^9, 
+   3.968240451920968*^9}, {3.9682404936419773`*^9, 3.968240568436124*^9}, 
+   3.9682406054600277`*^9, {3.968254281600505*^9, 3.968254282024685*^9}, {
+   3.968254586247945*^9, 3.968254766570162*^9}, {3.968255233154758*^9, 
+   3.968255259695298*^9}, {3.968256473766062*^9, 3.968256513327208*^9}, {
+   3.9682566422799263`*^9, 3.968256661401079*^9}, {3.968257158814549*^9, 
+   3.96825716702497*^9}, {3.968279618946432*^9, 3.968279739998488*^9}, {
+   3.968279778761004*^9, 3.968279857364056*^9}, {3.9682798899878902`*^9, 
+   3.968279909468161*^9}, {3.9682812157758827`*^9, 3.9682812452106533`*^9}, {
+   3.96828193558569*^9, 3.96828198091855*^9}, {3.9682823184872217`*^9, 
+   3.9682823712723827`*^9}, {3.968282409438395*^9, 3.968282477483789*^9}, {
+   3.968282525093021*^9, 3.968282541111205*^9}, {3.968283244393887*^9, 
+   3.968283252276455*^9}, {3.96828330053526*^9, 3.9682834407302217`*^9}},
+ CellLabel->
+  "In[803]:=",ExpressionUUID->"a9667496-d300-4a2e-a39a-64177a4939f1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+We can zoom in near the location of the maximum and minimum to see \
+approximately what the values are:\
+\>", "Section",
+ CellChangeTimes->{{3.968254775542612*^9, 3.968254797053546*^9}, {
+  3.9682554422278547`*^9, 3.968255446768465*^9}, {3.96825700706706*^9, 
+  3.9682570085671587`*^9}},ExpressionUUID->"b997fd65-1bfc-463a-b08e-\
+70155b2a04db"],
+
+Cell[BoxData[
+ RowBox[{"Labeled", "[", 
+  RowBox[{
+   RowBox[{"GraphicsRow", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Show", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"ContourPlot", "[", 
+          RowBox[{
+           RowBox[{"f", "[", 
+            RowBox[{"x", ",", "y"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", 
+             RowBox[{
+              RowBox[{"-", "2"}], "-", "0.5"}], ",", 
+             RowBox[{
+              RowBox[{"-", "2"}], "+", "0.5"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"y", ",", 
+             RowBox[{
+              RowBox[{"-", "1"}], "-", "0.5"}], ",", 
+             RowBox[{
+              RowBox[{"-", "1"}], "+", "0.5"}]}], "}"}], ",", 
+           RowBox[{"Contours", "->", 
+            RowBox[{"Table", "[", 
+             RowBox[{"z", ",", 
+              RowBox[{"{", 
+               RowBox[{"z", ",", 
+                RowBox[{"-", "10"}], ",", "0", ",", "1"}], "}"}]}], "]"}]}], ",", 
+           RowBox[{"AxesLabel", "->", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", "y"}], "}"}]}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ContourPlot", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"g", "[", 
+             RowBox[{"x", ",", "y"}], "]"}], "==", "5"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", 
+             RowBox[{
+              RowBox[{"-", "2"}], "-", "0.5"}], ",", 
+             RowBox[{
+              RowBox[{"-", "2"}], "+", "0.5"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"y", ",", 
+             RowBox[{
+              RowBox[{"-", "1"}], "-", "0.5"}], ",", 
+             RowBox[{
+              RowBox[{"-", "1"}], "+", "0.5"}]}], "}"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ParametricPlot", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"t", ",", 
+             RowBox[{
+              RowBox[{"-", "1"}], "-", 
+              RowBox[{"(", 
+               RowBox[{"t", "+", "2"}], ")"}]}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"t", ",", 
+             RowBox[{
+              RowBox[{"-", "2"}], "-", "0.5"}], ",", 
+             RowBox[{
+              RowBox[{"-", "2"}], "+", "0.5"}]}], "}"}], ",", 
+           RowBox[{"PlotStyle", "->", 
+            RowBox[{"{", "DarkGreen", "}"}]}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+         "PlotLabel", 
+          "->", "\"\<Contour Plot near the location of a Minimum vs the \
+Constraint\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{"AxesLabel", "->", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "y"}], "}"}]}]}], "\[IndentingNewLine]", "]"}], ",",
+        "\[IndentingNewLine]", 
+       RowBox[{"Show", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"ContourPlot", "[", 
+          RowBox[{
+           RowBox[{"f", "[", 
+            RowBox[{"x", ",", "y"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", 
+             RowBox[{"2", "-", "0.5"}], ",", 
+             RowBox[{"2", "+", "0.5"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"y", ",", 
+             RowBox[{"1", "-", "0.5"}], ",", 
+             RowBox[{"1", "+", "0.5"}]}], "}"}], ",", 
+           RowBox[{"Contours", "->", 
+            RowBox[{"Table", "[", 
+             RowBox[{"z", ",", 
+              RowBox[{"{", 
+               RowBox[{"z", ",", "0", ",", "10", ",", "1"}], "}"}]}], 
+             "]"}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"ContourPlot", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"g", "[", 
+             RowBox[{"x", ",", "y"}], "]"}], "==", "5"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", 
+             RowBox[{"2", "-", "0.5"}], ",", 
+             RowBox[{"2", "+", "0.5"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"y", ",", 
+             RowBox[{"1", "-", "0.5"}], ",", 
+             RowBox[{"1", "+", "0.5"}]}], "}"}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"ParametricPlot", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"t", ",", 
+             RowBox[{"1", "-", 
+              RowBox[{"(", 
+               RowBox[{"t", "-", "2"}], ")"}]}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"t", ",", 
+             RowBox[{"2", "-", "0.5"}], ",", 
+             RowBox[{"2", "+", "0.5"}]}], "}"}], ",", 
+           RowBox[{"PlotStyle", "->", 
+            RowBox[{"{", "DarkGreen", "}"}]}]}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+         "PlotLabel", 
+          "->", "\"\<Contour Plot near the location of a Maximum vs the \
+Constraint\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{"AxesLabel", "->", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "y"}], "}"}]}]}], "\[IndentingNewLine]", "]"}]}],
+       "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"ImageSize", "->", "Full"}]}], "\[IndentingNewLine]", "]"}], ",",
+    "\[IndentingNewLine]", 
+   RowBox[{
+   "{", "\"\<Zooming in Near the Maximum and the Minimum - Level Curves vs. \
+Constraint\>\"", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", "Top", "}"}]}], "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQBmIQfYl/X/aNCW8dY9z4ikH0/0zzChBdVbmjDUS//fSw
+G0SLfNnfD6K9J02fAaK97JLngGiJI/+Xg2ilR5xrQfSz6R3XQXTeli03QPQd
+s8awm0A6lZchBUTr9C3IBdGzU2bWgOhvsvxb7gBpo7SwrSB6wgKzQ0+A9I5F
+2SdBtEN1+zkQnfrv7GUQrfL7xi0Qve559x0QnSJuvvQpkP6sm7oCRB/qYtkM
+okMmyewD0Rv41Y6DaIPe++dBtMKjhN8geumP42B6WvRkhmdA+pSqPSuIPsD+
+iBNE75Tq5wXRN/LOCoLoR7zXhUE0ALW3tBw=
+  "],
+ CellLabel->
+  "In[776]:=",ExpressionUUID->"46040875-a568-472e-80a2-d31ede2ae3ec"]
+}, Open  ]],
+
+Cell["\<\
+There are two salient points here:
+(a) we can read the approximate max and min directly from these graphs using \
+the contour lines to estimate the level the constraint curve reaches
+(b) we notice that at the location of the maximum (minimum) the level curve \
+is tangent to the constraint curve - hence their normal vectors must be \
+scalar multiples of each other.
+
+This is what leads us to consider the equation grad(f) = \[Lambda] grad(g).\
+\>", "Section",
+ CellChangeTimes->{{3.968255479392583*^9, 3.968255606884606*^9}, {
+  3.968280735074082*^9, 
+  3.968280736308546*^9}},ExpressionUUID->"212894d6-ebea-4cff-973d-\
+0e1d8aa2450c"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Finally, we show how we can leverage Mathematica to actually perform the \
+Solve for us.
+We need to solve a system of 3 equations with 3 unknowns. Here is how we can \
+input this system:\
+\>", "Section",
+ CellChangeTimes->{{3.968257639807611*^9, 
+  3.9682576770491962`*^9}},ExpressionUUID->"88d0827b-70ad-4847-8f7e-\
+2dbeccbb3ffa"],
+
+Cell[BoxData[
+ RowBox[{"Solve", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"Derivative", "[", 
+         RowBox[{"1", ",", "0"}], "]"}], "[", "f", "]"}], "[", 
+       RowBox[{"x", ",", "y"}], "]"}], "\[Equal]", 
+      RowBox[{"\[Lambda]", " ", "*", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Derivative", "[", 
+          RowBox[{"1", ",", "0"}], "]"}], "[", "g", "]"}], "[", 
+        RowBox[{"x", ",", "y"}], "]"}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"Derivative", "[", 
+         RowBox[{"0", ",", "1"}], "]"}], "[", "f", "]"}], "[", 
+       RowBox[{"x", ",", "y"}], "]"}], "\[Equal]", 
+      RowBox[{"\[Lambda]", " ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Derivative", "[", 
+          RowBox[{"0", ",", "1"}], "]"}], "[", "g", "]"}], "[", 
+        RowBox[{"x", ",", "y"}], "]"}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"g", "[", 
+       RowBox[{"x", ",", "y"}], "]"}], "\[Equal]", "5"}]}], 
+    "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y", ",", "\[Lambda]"}], "}"}], ",", 
+   "\[IndentingNewLine]", "Reals"}], "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.968257522178101*^9, 3.9682576034894323`*^9}, {
+  3.9682803377049313`*^9, 3.9682803765167513`*^9}, {3.968280415285836*^9, 
+  3.968280415814377*^9}},
+ CellLabel->
+  "In[678]:=",ExpressionUUID->"16132c1c-5d2c-4f97-b2fb-99f0f0ba5515"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Now we need to check all the points we found by plugging back into the \
+objective function (f) to find the maximum and the minimum:\
+\>", "Section",
+ CellChangeTimes->{{3.9682828584897127`*^9, 
+  3.968282882600174*^9}},ExpressionUUID->"2e2ca803-5f8c-4d5b-8e4a-\
+f64d4ac7f892"],
+
+Cell[BoxData[{
+ RowBox[{"f", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", 
+   RowBox[{"-", "1"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", "1"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"0", ",", 
+   RowBox[{"-", 
+    RadicalBox["5", "4"]}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"0", ",", 
+   RadicalBox["5", "4"]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"2", ",", 
+   RowBox[{"-", "1"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"f", "[", 
+  RowBox[{"2", ",", "1"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.968280925322345*^9, 3.9682809752816563`*^9}},
+ CellLabel->
+  "In[700]:=",ExpressionUUID->"1ab12a5f-cded-43b9-a23f-1453033a13b3"]
+}, Open  ]],
+
+Cell[TextData[StyleBox["So, the answer to the problem is:\n(a) The maximum is \
+4, and it occurs at two places: (-2,1) and (2,1).\n(b) The minimum is -4, and \
+it occurs at two places: (-2,-1) and (2,-1).",
+ FontColor->GrayLevel[0],
+ Background->GrayLevel[0.85]]], "Section",
+ CellChangeTimes->{{3.968282890191741*^9, 3.968282949378834*^9}, {
+  3.968283515238658*^9, 
+  3.9682835275797377`*^9}},ExpressionUUID->"a8ffa1a1-2a6c-4603-a3f0-\
+8a569a8d9c74"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Finally, let\[CloseCurlyQuote]s show the points together with the tangent at \
+each of the candidate points we found to emphasize that the level curves must \
+be tangent to the constraint curve at those places, hence their normal \
+vectors must be scalar multiples of each other:\
+\>", "Section",
+ CellChangeTimes->{{3.9682829774304*^9, 3.968283023905504*^9}, {
+  3.968283541174136*^9, 
+  3.968283555916623*^9}},ExpressionUUID->"a9f3aa96-8bc5-4f0e-a3cc-\
+c790a9708546"],
+
+Cell[BoxData[
+ RowBox[{"Show", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ContourPlot", "[", 
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"x", ",", "y"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "xmin", ",", "xmax"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "ymin", ",", "ymax"}], "}"}], ",", 
+     RowBox[{"PlotRange", "->", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "27"}], ",", "27"}], "}"}]}], ",", 
+     RowBox[{"Contours", "->", 
+      RowBox[{"Table", "[", 
+       RowBox[{"z", ",", 
+        RowBox[{"{", 
+         RowBox[{"z", ",", 
+          RowBox[{"-", "24"}], ",", "24", ",", "2"}], "}"}]}], "]"}]}], ",", 
+     RowBox[{"AxesLabel", "->", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "y"}], "}"}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+   
+   RowBox[{"ContourPlot", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"g", "[", 
+       RowBox[{"x", ",", "y"}], "]"}], "==", "5"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "xmin", ",", "xmax"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"y", ",", "ymin", ",", "ymax"}], "}"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"1", "-", 
+        RowBox[{"(", 
+         RowBox[{"t", "-", "2"}], ")"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"2", "-", "0.5"}], ",", 
+       RowBox[{"2", "+", "0.5"}]}], "}"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{
+        RowBox[{"-", "1"}], "-", 
+        RowBox[{"(", 
+         RowBox[{"t", "+", "2"}], ")"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{
+        RowBox[{"-", "2"}], "-", "0.5"}], ",", 
+       RowBox[{
+        RowBox[{"-", "2"}], "+", "0.5"}]}], "}"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{
+        RowBox[{"-", "1"}], "+", 
+        RowBox[{"(", 
+         RowBox[{"t", "-", "2"}], ")"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"2", "-", "0.5"}], ",", 
+       RowBox[{"2", "+", "0.5"}]}], "}"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ParametricPlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{"1", "+", 
+        RowBox[{"(", 
+         RowBox[{"t", "+", "2"}], ")"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", 
+       RowBox[{
+        RowBox[{"-", "2"}], "-", "0.5"}], ",", 
+       RowBox[{
+        RowBox[{"-", "2"}], "+", "0.5"}]}], "}"}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+   "PlotLabel", 
+    "->", "\"\<Contour Plot of z=f(x,y) with the Constraint Shown + Tangent \
+Lines at each Extremum\>\""}], ",", "\[IndentingNewLine]", 
+   RowBox[{"AxesLabel", "->", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}]}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.9682809134176292`*^9, 3.9682809147823973`*^9}, {
+  3.968280987319192*^9, 3.968281049787528*^9}, {3.9682810870295153`*^9, 
+  3.9682811656142178`*^9}, {3.968281293665785*^9, 3.9682813243897953`*^9}, {
+  3.968281360937546*^9, 3.968281475935047*^9}, {3.968281692021963*^9, 
+  3.968281878852437*^9}, {3.968282839332665*^9, 3.968282839954505*^9}, {
+  3.968283032871228*^9, 3.968283041586931*^9}},
+ CellLabel->
+  "In[777]:=",ExpressionUUID->"8ef227db-f228-460e-aeed-24df98f78672"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1535, 904},
+WindowMargins->{{64, Automatic}, {33, Automatic}},
+FrontEndVersion->"14.3 for Mac OS X ARM (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"a29dedff-1c81-426c-af20-efc0417145e3"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 463, 9, 278, "Title",ExpressionUUID->"349d7c43-26e6-4477-918e-c17903dff101"],
+Cell[CellGroupData[{
+Cell[1064, 35, 227, 5, 66, "Section",ExpressionUUID->"f3dfef55-22a4-489c-bd0e-da8016b99691"],
+Cell[1294, 42, 2135, 57, 274, "Input",ExpressionUUID->"56c28491-6742-4d1d-b63e-f50cb857f774"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3466, 104, 762, 13, 177, "Section",ExpressionUUID->"e4e00826-5d82-4486-abb3-b169876b773b"],
+Cell[4231, 119, 3088, 85, 244, "Input",ExpressionUUID->"2ab7eb84-7c91-42cb-921f-80c73c1f8fb8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7356, 209, 459, 8, 103, "Section",ExpressionUUID->"7249a366-e9d1-4663-a02f-ee73515b0079"],
+Cell[7818, 219, 5405, 131, 470, "Input",ExpressionUUID->"a9667496-d300-4a2e-a39a-64177a4939f1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13260, 355, 354, 7, 66, "Section",ExpressionUUID->"b997fd65-1bfc-463a-b08e-70155b2a04db"],
+Cell[13617, 364, 5811, 149, 437, "Input",ExpressionUUID->"46040875-a568-472e-80a2-d31ede2ae3ec"]
+}, Open  ]],
+Cell[19443, 516, 645, 13, 289, "Section",ExpressionUUID->"212894d6-ebea-4cff-973d-0e1d8aa2450c"],
+Cell[CellGroupData[{
+Cell[20113, 533, 341, 8, 89, "Section",ExpressionUUID->"88d0827b-70ad-4847-8f7e-2dbeccbb3ffa"],
+Cell[20457, 543, 1575, 40, 192, "Input",ExpressionUUID->"16132c1c-5d2c-4f97-b2fb-99f0f0ba5515"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22069, 588, 287, 6, 103, "Section",ExpressionUUID->"2e2ca803-5f8c-4d5b-8e4a-f64d4ac7f892"],
+Cell[22359, 596, 758, 22, 150, "Input",ExpressionUUID->"1ab12a5f-cded-43b9-a23f-1453033a13b3"]
+}, Open  ]],
+Cell[23132, 621, 452, 8, 140, "Section",ExpressionUUID->"a8ffa1a1-2a6c-4603-a3f0-8a569a8d9c74"],
+Cell[CellGroupData[{
+Cell[23609, 633, 479, 9, 126, "Section",ExpressionUUID->"a9f3aa96-8bc5-4f0e-a3cc-c790a9708546"],
+Cell[24091, 644, 3562, 104, 213, "Input",ExpressionUUID->"8ef227db-f228-460e-aeed-24df98f78672"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
